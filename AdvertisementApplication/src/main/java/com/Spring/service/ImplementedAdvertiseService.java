@@ -30,8 +30,7 @@ public class ImplementedAdvertiseService implements AdverService {
 	
 	@Override
 	public Object save(Advertisement advertise, String authToken) {
-    
-		UserEntity userEntity=UserRepo.findBySessionId(authToken);
+		UserEntity userEntity=userRepository.findBySessionId(authToken);
 		if (userEntity!=null)
 		{
 			
@@ -47,10 +46,10 @@ public class ImplementedAdvertiseService implements AdverService {
 
 	@Override
 	public Object update(Advertisement advertise, String authToken, String id) {
-		UserEntity userEntity=UserRepo.findBySessionId(authToken);
+		UserEntity userEntity=userRepository.findBySessionId(authToken);
 		if (userEntity!=null)
 		{
-			AdvertisementEntity advertiseEntity=AdvertiseRepo.findById(Long.valueOf(id)).get();
+			AdvertisementEntity advertiseEntity= advertiseRepository.findById(Long.valueOf(id)).get();
 			if(advertiseEntity != null) 
 			{
 				advertiseEntity.setTitle(advertise.getTitle());
@@ -81,9 +80,9 @@ public class ImplementedAdvertiseService implements AdverService {
 	public List<Advertisement> getAdvertiseByPostId(String authToken, String postId) {
 		String userName=userRepository.findBySessionId(authToken).getFirstName();
 		List<Advertisement> userAdvertise=AdvertisementUtils.convertAdvertiseEntityListToAdvertiseList( advertiseRepository.findByName(userName));
-		List<Advertisement>requiredAdvertise=userAdvertise.stream().filter(advertise -> postId.equals(Advertisement.getPostId())).collect(Collectors.toList());
+		List<Advertisement> requiredAdvertise=userAdvertise.stream().filter(advertisement -> postId.equals(advertisement.getPostId())).collect(Collectors.toList());
 		return requiredAdvertise;
-	}
+		}
 
 	@Override
 	public boolean deleteAdvertiseByPostId(String authToken, String postId) {
@@ -99,25 +98,21 @@ public class ImplementedAdvertiseService implements AdverService {
 		return false;
 	}
 
-
-
+	@Override
+	public List<Advertisement> getAllAdvertise() {
+		return AdvertisementUtils.convertAdvertiseEntityListToAdvertiseList(
+				advertiseRepository.findAll());
+	}
 
 	@Override
 	public MsgEntity addMessage(MsgEntity message) {
-		
+		String postId=message.getPostId();
+		 AdvertisementEntity advertiseEntity= advertiseRepository.findByPostId(postId);
+		 List<MsgEntity> messageList=advertiseEntity.getMessageList();
+		 message.setPostId(postId);
+		 messageList.add(message);
+		 message=messageRepository.save(message);
 		 return message;
-	}
-
-	@Override
-	public List<Advertisement> getAdvertiseByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Advertisement> getAllAdvertise() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

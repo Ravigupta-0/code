@@ -10,13 +10,20 @@ import javax.persistence.Table;
 @Table(name="message_master")
 public class MsgEntity
 {
+	@Id
+	@GeneratedValue
+	@Column(name="Id")
+	private long id;
 	
+	@Column(name="PostId")
+	private String postId;
+	
+	@Column(name="Message_Box")
+	private String message;
 	public MsgEntity() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
-
 	public MsgEntity(long id, String postId, String message) {
 		super();
 		this.id = id;
@@ -32,17 +39,6 @@ public class MsgEntity
 		super();
  		this.message = message;
 	}
-	
-
-
-	@Id
-	@GeneratedValue
-	@Column(name="Id")
-	private long id;
-	
-	private String postId;
-	
-	private String message;
 
 	public long getId() {
 		return id;

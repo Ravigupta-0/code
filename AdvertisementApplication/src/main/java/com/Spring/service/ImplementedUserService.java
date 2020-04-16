@@ -57,27 +57,25 @@ public class ImplementedUserService implements UserService {
 
 	@Override
 	public String login(users user) {
-		String sessionId=null;
+		
 		Random random =new Random();
 		users newUser =UserUtils.convertUserEntityToUser(userRepository.findByUserName(user.getUserName()));
 		
 			if (newUser.getUserName().equals(user.getUserName()))
 			{
-				if(newUser.getPassword().equals(user.getPassword()))
-				{
-					 sessionId = Integer.toString(random.nextInt(10000));
+		
+					
 					UserEntity userEntity = userRepository.findById(Long.valueOf(newUser.getId())).get();
-					userEntity.setSessionId(sessionId);
+					userEntity.setSessionId(Integer.toString(random.nextInt(10000)));
 					userEntity =userRepository.save(userEntity);
-					return "{\"result\": \"success\",\"auth-token\":\""+sessionId+"\"}";
-				}
-				else 
-				{
-					return "{\"result\": \"invalid Password\"}";
-				}
+					return "{\"result\": \"success\"}";
+				
+				
+					
+				
 			}	
 		else 
-			return "{\"result\": \"Invalid User\"}";
+			return "{\"result\": \"invalid Password\"}";
 		
 	}
 

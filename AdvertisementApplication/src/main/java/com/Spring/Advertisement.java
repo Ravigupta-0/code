@@ -18,6 +18,15 @@ public class Advertisement {
 		Category = category;
 		this.description = description;
 	}
+	public Advertisement( String postId, String title, String name, String category, String description) {
+		super();
+	
+		this.title = title;
+		this.name = name;
+		Category = category;
+		this.description = description;
+	}
+
 
 	public Advertisement(String postId, String status, String title, String name, String category, String description) {
 		super();

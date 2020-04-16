@@ -15,14 +15,12 @@ public interface AdverService {
 
 	List<Advertisement> getAdvertiseByPostId(String authToken, String postId);
 
-	boolean deleteAdvertiseByPostId(String authToken, String postId);
-	
-	List<Advertisement> getAdvertiseByName(String name);
-
 	List<Advertisement> getAllAdvertise();
 
 
 	MsgEntity addMessage(MsgEntity message );
+
+	boolean deleteAdvertiseByPostId(String authToken, String postId);
 
 	 
 

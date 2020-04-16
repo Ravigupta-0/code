@@ -21,24 +21,24 @@ public class UserEntity {
 	@Column(name = "ID")
 	private long id;
 	
-	@Column(name = "USER_NAME")
+	@Column(name = "User_Name")
 	private String userName;
 
-	@Column(name = "FIRST_NAME")
+	@Column(name = "First_Name")
 	private String firstName;
 	
-	@Column(name = "PASSWORD")
+	@Column(name = "PassWord")
 	private String password;
 	
-	@Column(name = "EMAIL")
+	@Column(name = "Email")
 	private String email;
 	
-	@Column(name = "SESSION_ID")
+	@Column(name = "Session_ID")
 	private String sessionId;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name="user_id")
-	private List<AdvertisementEntity> advertiseList;
+	private List<AdvertisementEntity> advertisementList;
 	
 
 	public UserEntity() {
@@ -65,11 +65,11 @@ public class UserEntity {
 
 
 	public List<AdvertisementEntity> getAdvertiseList() {
-		return advertiseList;
+		return advertisementList;
 	}
 
 	public void setAdvertiseList(List<AdvertisementEntity> advertiseList) {
-		this.advertiseList = advertiseList;
+		this.advertisementList = advertiseList;
 	}
 
 	public long getId() {
