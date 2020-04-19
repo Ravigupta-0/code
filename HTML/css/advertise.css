@@ -1,0 +1,15 @@
+.icontype{
+	height:150px;
+	width: 150px;
+}
+.head{
+	color: green;
+	text-align: center;
+}
+.line{
+	background-color: red;
+}
+.last{
+	background-color: #ff8000;
+}
+
